@@ -1,0 +1,15 @@
+/home/anya/Term3/lab2/bin/Debug/net8.0/lab2
+/home/anya/Term3/lab2/bin/Debug/net8.0/lab2.deps.json
+/home/anya/Term3/lab2/bin/Debug/net8.0/lab2.runtimeconfig.json
+/home/anya/Term3/lab2/bin/Debug/net8.0/lab2.dll
+/home/anya/Term3/lab2/bin/Debug/net8.0/lab2.pdb
+/home/anya/Term3/lab2/obj/Debug/net8.0/lab2.GeneratedMSBuildEditorConfig.editorconfig
+/home/anya/Term3/lab2/obj/Debug/net8.0/lab2.AssemblyInfoInputs.cache
+/home/anya/Term3/lab2/obj/Debug/net8.0/lab2.AssemblyInfo.cs
+/home/anya/Term3/lab2/obj/Debug/net8.0/lab2.csproj.CoreCompileInputs.cache
+/home/anya/Term3/lab2/obj/Debug/net8.0/lab2.sourcelink.json
+/home/anya/Term3/lab2/obj/Debug/net8.0/lab2.dll
+/home/anya/Term3/lab2/obj/Debug/net8.0/refint/lab2.dll
+/home/anya/Term3/lab2/obj/Debug/net8.0/lab2.pdb
+/home/anya/Term3/lab2/obj/Debug/net8.0/lab2.genruntimeconfig.cache
+/home/anya/Term3/lab2/obj/Debug/net8.0/ref/lab2.dll
