@@ -58,12 +58,10 @@ namespace Lab4FileProcessor
             Console.Write("Введите путь к файлу (или нажмите Enter для примера test.txt): ");
             string? filePath = Console.ReadLine();
 
-            // Если путь не указан, используем test.txt в текущей директории
             if (string.IsNullOrWhiteSpace(filePath))
             {
                 filePath = "test.txt";
 
-                // Создаем пример файла, если его нет
                 if (!File.Exists(filePath))
                 {
                     CreateSampleFile(filePath);
@@ -71,14 +69,12 @@ namespace Lab4FileProcessor
                 }
             }
 
-            // Проверка, что файл существует
             if (!File.Exists(filePath))
             {
                 Console.WriteLine($"ОШИБКА: Файл не найден: {filePath}");
                 return;
             }
 
-            // Проверка расширения .txt
             string extension = Path.GetExtension(filePath).ToLower();
             if (extension != ".txt")
             {
@@ -91,29 +87,23 @@ namespace Lab4FileProcessor
 
             try
             {
-                // Начало отсчета времени загрузки
                 stopwatch.Restart();
 
-                // Чтение файла с использованием File.ReadAllText()
                 string fileContent = File.ReadAllText(filePath);
 
-                // Разделение на слова с использованием Split()
                 char[] separators = new char[] { ' ', '\n', '\r', '\t', '.', ',', ';', ':', '!', '?', '"', '\'', '(', ')', '[', ']', '{', '}' };
                 string[] words = fileContent.Split(separators, StringSplitOptions.RemoveEmptyEntries);
 
-                // Сохранение в список без дубликатов
                 wordsList = words
                     .Select(w => w.Trim())
                     .Where(w => !string.IsNullOrWhiteSpace(w))
                     .Distinct()
                     .ToList();
 
-                // Остановка таймера
                 stopwatch.Stop();
 
                 currentFileName = Path.GetFileName(filePath);
 
-                // Вывод результатов
                 Console.WriteLine($"\n✓ Файл успешно загружен: {currentFileName}");
                 Console.WriteLine($"✓ Всего уникальных слов: {wordsList.Count}");
                 Console.WriteLine($"✓ Время загрузки и сохранения: {stopwatch.ElapsedMilliseconds} мс");
@@ -144,18 +134,14 @@ namespace Lab4FileProcessor
                 return;
             }
 
-            // Начало отсчета времени поиска
             stopwatch.Restart();
 
-            // Поиск слова как подстроки (регистронезависимый)
             List<string> foundWords = wordsList
                 .Where(w => w.IndexOf(searchWord, StringComparison.OrdinalIgnoreCase) >= 0)
                 .ToList();
 
-            // Остановка таймера
             stopwatch.Stop();
 
-            // Вывод результатов
             Console.WriteLine($"\n✓ Поиск завершен");
             Console.WriteLine($"✓ Найдено слов: {foundWords.Count}");
             Console.WriteLine($"✓ Время поиска: {stopwatch.ElapsedMilliseconds} мс");

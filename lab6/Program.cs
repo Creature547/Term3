@@ -6,15 +6,12 @@ namespace Lab6DelegatesReflection
 {
     // ===== ЧАСТЬ 1: ДЕЛЕГАТЫ =====
 
-    // Делегат с несколькими параметрами разных типов
     public delegate double MathOperation(int a, double b, string operation);
 
-    // Делегат для демонстрации
     public delegate void MessageDelegate(string message);
 
     class Calculator
     {
-        // Метод для делегата MathOperation
         public static double Calculate(int a, double b, string operation)
         {
             switch (operation.ToLower())
@@ -30,13 +27,11 @@ namespace Lab6DelegatesReflection
             }
         }
 
-        // Метод для вывода сообщения
         public static void PrintMessage(string msg)
         {
             Console.WriteLine($"Сообщение: {msg}");
         }
 
-        // Метод с параметром-делегатом
         public static void ProcessWithDelegate(MathOperation operation, int x, double y, string op)
         {
             Console.WriteLine($"\n--- Вызов через делегат как параметр ---");
@@ -47,7 +42,6 @@ namespace Lab6DelegatesReflection
 
     // ===== ЧАСТЬ 2: РЕФЛЕКСИЯ =====
 
-    // Атрибут для пометки свойств
     [AttributeUsage(AttributeTargets.Property)]
     public class DisplayAttribute : Attribute
     {
@@ -59,7 +53,6 @@ namespace Lab6DelegatesReflection
         }
     }
 
-    // Класс для демонстрации рефлексии
     public class Person
     {
         [Display("Имя пользователя")]
@@ -155,7 +148,6 @@ namespace Lab6DelegatesReflection
         {
             Console.WriteLine("\n=== ЧАСТЬ 1: Пользовательские делегаты ===\n");
 
-            // Создание экземпляра делегата
             MathOperation mathOp = Calculator.Calculate;
 
             Console.WriteLine("--- Прямой вызов делегата ---");
@@ -165,15 +157,12 @@ namespace Lab6DelegatesReflection
             double result2 = mathOp(10, 5.5, "multiply");
             Console.WriteLine($"10 * 5.5 = {result2}");
 
-            // Передача делегата как параметра
             Calculator.ProcessWithDelegate(mathOp, 20, 4.0, "divide");
 
-            // Делегат с лямбда-выражением
             Console.WriteLine("\n--- Делегат с лямбда-выражением ---");
             MessageDelegate msgDel = (msg) => Console.WriteLine($"[Lambda] {msg}");
             msgDel("Привет из лямбда-выражения!");
 
-            // Многоадресный делегат (multicast)
             Console.WriteLine("\n--- Многоадресный делегат ---");
             MessageDelegate multiDel = Calculator.PrintMessage;
             multiDel += (msg) => Console.WriteLine($"[Дополнительно] {msg}");
@@ -187,7 +176,6 @@ namespace Lab6DelegatesReflection
         {
             Console.WriteLine("\n=== ЧАСТЬ 1: Func<> и Action<> ===\n");
 
-            // Action<> - делегат без возвращаемого значения
             Console.WriteLine("--- Action<> делегат ---");
             Action<string> printAction = (message) => Console.WriteLine($"Action: {message}");
             printAction("Привет от Action!");
@@ -195,7 +183,6 @@ namespace Lab6DelegatesReflection
             Action<int, int> sumAction = (a, b) => Console.WriteLine($"Сумма: {a + b}");
             sumAction(5, 10);
 
-            // Func<> - делегат с возвращаемым значением
             Console.WriteLine("\n--- Func<> делегат ---");
             Func<int, int, int> addFunc = (x, y) => x + y;
             int sum = addFunc(7, 3);
@@ -205,7 +192,6 @@ namespace Lab6DelegatesReflection
             int length = lengthFunc("Hello, World!");
             Console.WriteLine($"Длина строки 'Hello, World!': {length}");
 
-            // Комбинирование Func<>
             Func<int, int> square = x => x * x;
             Func<int, int> addTen = x => x + 10;
 
@@ -221,13 +207,11 @@ namespace Lab6DelegatesReflection
 
             Type personType = typeof(Person);
 
-            // Информация о классе
             Console.WriteLine($"Полное имя класса: {personType.FullName}");
             Console.WriteLine($"Пространство имен: {personType.Namespace}");
             Console.WriteLine($"Имя класса: {personType.Name}");
             Console.WriteLine($"Является ли классом: {personType.IsClass}");
 
-            // Информация о конструкторах
             Console.WriteLine("\n--- Конструкторы ---");
             ConstructorInfo[] constructors = personType.GetConstructors();
             foreach (var ctor in constructors)
@@ -237,7 +221,6 @@ namespace Lab6DelegatesReflection
                 Console.WriteLine($"  Constructor({paramList})");
             }
 
-            // Информация о свойствах
             Console.WriteLine("\n--- Свойства ---");
             PropertyInfo[] properties = personType.GetProperties();
             foreach (var prop in properties)
@@ -246,7 +229,6 @@ namespace Lab6DelegatesReflection
                 Console.WriteLine($"    Можно читать: {prop.CanRead}, Можно писать: {prop.CanWrite}");
             }
 
-            // Информация о методах
             Console.WriteLine("\n--- Методы ---");
             MethodInfo[] methods = personType.GetMethods(BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly);
             foreach (var method in methods)
@@ -269,7 +251,6 @@ namespace Lab6DelegatesReflection
 
             foreach (var prop in properties)
             {
-                // Получение атрибута
                 var displayAttr = prop.GetCustomAttribute<DisplayAttribute>();
 
                 if (displayAttr != null)
@@ -291,7 +272,6 @@ namespace Lab6DelegatesReflection
         {
             Console.WriteLine("\n=== ЧАСТЬ 2: Рефлексия - Динамический вызов методов ===\n");
 
-            // Создание объекта через рефлексию
             Type personType = typeof(Person);
 
             Console.WriteLine("--- Создание объекта через рефлексию ---");
@@ -305,7 +285,6 @@ namespace Lab6DelegatesReflection
 
             Console.WriteLine("Объект создан успешно!");
 
-            // Получение и установка значений свойств
             Console.WriteLine("\n--- Работа со свойствами через рефлексию ---");
             PropertyInfo? nameProp = personType.GetProperty("Name");
             if (nameProp != null)
@@ -318,7 +297,6 @@ namespace Lab6DelegatesReflection
                 Console.WriteLine($"Новое имя: {newName}");
             }
 
-            // Вызов метода через рефлексию
             Console.WriteLine("\n--- Вызов методов через рефлексию ---");
             MethodInfo? introduceMethod = personType.GetMethod("Introduce");
             if (introduceMethod != null)
@@ -335,7 +313,6 @@ namespace Lab6DelegatesReflection
                 Console.WriteLine(result);
             }
 
-            // Вызов приватного метода
             Console.WriteLine("\n--- Вызов приватного метода ---");
             MethodInfo? secretMethod = personType.GetMethod("SecretMethod", BindingFlags.NonPublic | BindingFlags.Instance);
             if (secretMethod != null)

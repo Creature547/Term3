@@ -4,15 +4,8 @@ using System.Linq;
 
 namespace LevenshteinLibrary
 {
-    /// <summary>
-    /// Библиотека для вычисления расстояния Левенштейна
-    /// с использованием алгоритма Вагнера-Фишера
-    /// </summary>
     public class LevenshteinCalculator
     {
-        /// <summary>
-        /// Простой вариант алгоритма без оптимизации
-        /// </summary>
         public static int Calculate(string source, string target)
         {
             if (string.IsNullOrEmpty(source))
@@ -24,17 +17,14 @@ namespace LevenshteinLibrary
             int sourceLength = source.Length;
             int targetLength = target.Length;
 
-            // Создание матрицы расстояний
             int[,] matrix = new int[sourceLength + 1, targetLength + 1];
 
-            // Инициализация первой строки и первого столбца
             for (int i = 0; i <= sourceLength; i++)
                 matrix[i, 0] = i;
 
             for (int j = 0; j <= targetLength; j++)
                 matrix[0, j] = j;
 
-            // Заполнение матрицы
             for (int i = 1; i <= sourceLength; i++)
             {
                 for (int j = 1; j <= targetLength; j++)
@@ -43,18 +33,15 @@ namespace LevenshteinLibrary
 
                     matrix[i, j] = Math.Min(
                         Math.Min(
-                            matrix[i - 1, j] + 1,      // удаление
-                            matrix[i, j - 1] + 1),     // вставка
-                        matrix[i - 1, j - 1] + cost);  // замена
+                            matrix[i - 1, j] + 1,
+                            matrix[i, j - 1] + 1),
+                        matrix[i - 1, j - 1] + cost);
                 }
             }
 
             return matrix[sourceLength, targetLength];
         }
 
-        /// <summary>
-        /// Вычисление расстояния с учетом перестановок соседних символов (Дамерау-Левенштейн)
-        /// </summary>
         public static int CalculateWithTransposition(string source, string target)
         {
             if (string.IsNullOrEmpty(source))
@@ -86,7 +73,6 @@ namespace LevenshteinLibrary
                             matrix[i, j - 1] + 1),
                         matrix[i - 1, j - 1] + cost);
 
-                    // Проверка перестановки соседних символов
                     if (i > 1 && j > 1 &&
                         source[i - 1] == target[j - 2] &&
                         source[i - 2] == target[j - 1])
@@ -99,18 +85,12 @@ namespace LevenshteinLibrary
             return matrix[sourceLength, targetLength];
         }
 
-        /// <summary>
-        /// Проверка, является ли расстояние допустимым (не превышает максимум)
-        /// </summary>
         public static bool IsWithinMaxDistance(string source, string target, int maxDistance)
         {
             int distance = Calculate(source, target);
             return distance <= maxDistance;
         }
 
-        /// <summary>
-        /// Получение матрицы расстояний для визуализации
-        /// </summary>
         public static int[,] GetDistanceMatrix(string source, string target)
         {
             if (string.IsNullOrEmpty(source) && string.IsNullOrEmpty(target))
@@ -147,9 +127,6 @@ namespace LevenshteinLibrary
             return matrix;
         }
 
-        /// <summary>
-        /// Вывод матрицы в строковом виде для отладки
-        /// </summary>
         public static string MatrixToString(string source, string target)
         {
             int[,] matrix = GetDistanceMatrix(source, target);
@@ -185,7 +162,6 @@ namespace LevenshteinLibrary
         }
     }
 
-    // Программа-пример для демонстрации работы библиотеки
     class Program
     {
         static void Main(string[] args)

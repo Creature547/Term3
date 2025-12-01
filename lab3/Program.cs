@@ -4,7 +4,6 @@ using System.Collections.Generic;
 
 namespace Lab3Collections
 {
-    // Абстрактный класс "Геометрическая фигура" с System.IComparable
     abstract class GeometricShape : System.IComparable
     {
         public abstract double CalculateArea();
@@ -14,7 +13,6 @@ namespace Lab3Collections
             return $"{this.GetType().Name}: Площадь = {CalculateArea():F2}";
         }
 
-        // Реализация IComparable для сортировки по площади
         public int CompareTo(object? obj)
         {
             if (obj == null) return 1;
@@ -27,7 +25,6 @@ namespace Lab3Collections
         }
     }
 
-    // Класс "Прямоугольник"
     class Rectangle : GeometricShape
     {
         public double Width { get; set; }
@@ -50,7 +47,6 @@ namespace Lab3Collections
         }
     }
 
-    // Класс "Квадрат"
     class Square : Rectangle
     {
         public Square(double side) : base(side, side)
@@ -63,7 +59,6 @@ namespace Lab3Collections
         }
     }
 
-    // Класс "Круг"
     class Circle : GeometricShape
     {
         public double Radius { get; set; }
@@ -84,7 +79,6 @@ namespace Lab3Collections
         }
     }
 
-    // Класс разреженной матрицы
     class SparseMatrix
     {
         private Dictionary<string, double> elements;
@@ -98,7 +92,6 @@ namespace Lab3Collections
             elements = new Dictionary<string, double>();
         }
 
-        // Индексатор для доступа к элементам
         public double this[int x, int y, int z]
         {
             get
@@ -153,7 +146,6 @@ namespace Lab3Collections
             count = 0;
         }
 
-        // Добавление в стек
         public void Push(T element)
         {
             Node newNode = new Node(element);
@@ -162,7 +154,6 @@ namespace Lab3Collections
             count++;
         }
 
-        // Чтение с удалением из стека
         public T Pop()
         {
             if (top == null)
